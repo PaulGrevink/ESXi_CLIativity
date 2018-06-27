@@ -3,8 +3,8 @@ $VMhostUser = "root"
 $VMhostPass = "pw"
 
 $HostInfo = Get-VMHost -Name $VMhostName
-
-Get-VMHost -Name $VMhostName | Foreach {Start-VMHostService -HostService ($_ | Get-VMHostService | Where { $_.Key -eq "TSM-SSH"} )}
+$VMhostService = Get-VMHost -Name $VMhostName | Get-VMHostService | Where { $_.Key -eq "TSM-SSH"} 
+Start-VMHostService -HostService $VMhostService
 
 if ($HostInfo.Model -eq "ProLiant DL380 Gen9" ) {
     Write-Host "This is a ProLiant DL380 Gen9"
