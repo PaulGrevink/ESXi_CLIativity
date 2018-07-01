@@ -1,31 +1,16 @@
 cd /tmp
-
 > log.txt
-
 echo "chmod 744 \/tmp\/*.vmexe" > firmware.sh
-
 echo "ls *.vmexe > firmware" >> firmware.sh
-
 echo "for fs in \`cat firmware\`; do" >> firmware.sh
-
 echo "  echo \`esxcli hardware clock get\` \"Start installation \$fs\" >> log.txt" >> firmware.sh
-
 echo "  .\/\$fs -s" >> firmware.sh
-
 echo "done" >> firmware.sh
-
 echo "rm CP*" >> firmware.sh
-
 echo "if [ \`esxcli system maintenanceMode get | grep Enabled\` ]" >> firmware.sh
-
 echo "then" >> firmware.sh
-
 echo "    reboot" >> firmware.sh
-
 echo "fi" >> firmware.sh
-
 chmod 744 /tmp/firmware.sh
-
 nohup /tmp/firmware.sh > /tmp/my.log 2>&1 &
-
 echo $! > save_pid.txt
